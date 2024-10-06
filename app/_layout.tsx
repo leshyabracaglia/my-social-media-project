@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { View } from 'react-native';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -29,7 +30,8 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="LeshyaPay/index" options={{ headerShown: true, headerTitle: 'LeshyaPay', headerBackVisible: true }} />
+        <Stack.Screen name="SocialMediaApp/index" options={{ headerShown: true, headerTitle: 'Social Media App', headerBackVisible: true }} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>
