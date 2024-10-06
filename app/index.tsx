@@ -15,6 +15,8 @@ SplashScreen.preventAutoHideAsync();
 function AppNavigationHeader() {
   const { currentApp } = useCurrentAppContext();
 
+  console.log('currentApp', currentApp);
+
   if(currentApp === null) {
     return null;
   }
@@ -29,6 +31,7 @@ function AppNavigationHeader() {
 function RenderApp() {
   const { currentApp } = useCurrentAppContext();
 
+  console.log('currentApp hi', currentApp);
   if(currentApp === AVAILABLE_APPS.LESHYA_PAY) {
     return <LeshyaPay />
   }

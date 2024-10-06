@@ -1,8 +1,6 @@
 import { Text, View } from "react-native";
 
 import { createContext, PropsWithChildren, useContext, useState } from "react";
-import { useNavigation, useRouter } from "expo-router";
-import { useRoute } from "@react-navigation/native";
 
 export const AVAILABLE_APPS = {
   LESHYA_PAY: 'leshya_pay',
@@ -20,14 +18,12 @@ interface ICurrentAppContext {
 export const CurrentAppContext = createContext<ICurrentAppContext | null>(null);
 
 export default function CurrentAppProvider({children}: PropsWithChildren) {
-  const currentRoute = useRoute();
-  const currentApp = currentRoute.name as IAvailableApp;
-  console.log('currentApp', currentApp);
+  const [currentApp, setCurrentApp] = useState<IAvailableApp | null>(null);
 
   return(
     <CurrentAppContext.Provider value={{
       currentApp,
-      setCurrentApp: () => {},
+      setCurrentApp,
     }}>
       {children}
     </CurrentAppContext.Provider>
