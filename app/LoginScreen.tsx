@@ -1,14 +1,11 @@
 import { Text, View, TextInput, Button } from 'react-native';
 
 import { useState } from 'react';
-import { Link, useNavigation } from 'expo-router';
-import { AVAILABLE_APPS, useCurrentAppContext } from './CurrentAppProvider';
 
 // no login quick send me money using apple pay and I could send like an invite link to someone
 // public page like how we do store
 
 export default function LoginScreen({onLogin}: {onLogin: () => void}) {
-  const navigation = useNavigation();
 
   const [email, setEmail] = useState('');
 

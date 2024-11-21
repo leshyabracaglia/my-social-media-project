@@ -30,8 +30,7 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="LeshyaPay/index" options={{ headerShown: true, headerTitle: 'LeshyaPay', headerBackVisible: true }} />
-        <Stack.Screen name="SocialMediaApp/index" options={{ headerShown: true, headerTitle: 'Social Media App', headerBackVisible: true }} />
+        <Stack.Screen name="index" options={{ headerShown: true, headerTitle: 'Social Media App', headerBackVisible: true }} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>
