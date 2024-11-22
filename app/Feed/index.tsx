@@ -1,6 +1,7 @@
-import React, { ScrollView, Text, View } from "react-native";
-import { IPost, usePosts } from "../hooks/useBackend";
+import React, { ScrollView, View } from "react-native";
 import PostButton from "./PostButton";
+import Post from "./Post";
+
 
 const ALL_POSTS = [
   {
@@ -24,8 +25,9 @@ const ALL_POSTS = [
     title: 'Yoga is my favorite activity!',
     subtitle: 'Yoga is my favorite activity! I do it every day and it makes me feel so good. I recommend it to everyone. It is a great way to relax and clear your mind.',
     author: '@random_woman',
+    imageSrc: 'https://picsum.photos/200/300',
     date: '2024-01-03',
-    type: 'text',
+    type: 'image',
   },
   {
     id: '4',
@@ -45,35 +47,21 @@ const ALL_POSTS = [
   }
 ]
 
-function Post({ post }: { post: IPost }) {
-  return (
-    <View className="bg-gray-100 !p-5 px-6 rounded-lg border border-solid border-[#6622CC] mt-4 shadow-sm">
-      <View className="flex flex-col justify-between">
-        <Text className="text-2xl font-bold mt-2">{post.title}</Text>
-        <Text className="text-8 text-[#6622CC]">✪ {post.date}</Text>
-      </View>
-      <Text className="mt-2">{post.subtitle}</Text>
-      <View className="flex flex-row justify-between mt-4">
-        <Text className="text-[#6622CC]">{post.author}</Text>
-        <Text className="text-[#6622CC]">Like</Text>
-      </View>
-    </View>
-  );
 
-}
 
 export default function FeedScreen() {
   // const posts = usePosts();
 
 
   return (
-    <View className="h-full w-full  bg-[#FFBE86]">
+    <View className="h-full w-full  bg-[#ACC3A6]">
       <ScrollView className="flex flex-col gap-6 mx-6 mt-6">
         {ALL_POSTS.map((post) => (
           <Post post={post} key={post.id} />
         ))}
+        <View className="h-10 w-full " />
       </ScrollView>
-      <View className="h-10 w-full bg-[#FFBE86]" />
+      
       <View className="absolute top-4 right-4">
         <PostButton />
       </View>

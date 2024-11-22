@@ -14,16 +14,28 @@ export default function useBackend() {
 
 }
 
-type IPostType = "text";
+export const POST_TYPES = {
+  TEXT: "text",
+  IMAGE: "image",
+  AUDIO: "audio",
+}
 
-export interface IPost {
+type IPostType = typeof POST_TYPES[keyof typeof POST_TYPES];
+
+export interface ITextPost {
   id: string;
-  type: string;
+  type: IPostType;
   title: string;
   subtitle: string;
   author: string;
   date: string;
 }
+
+export interface IImagePost extends ITextPost {
+  imageSrc: string;
+}
+
+export type IPost = ITextPost | IImagePost;
 
 export function usePosts(): IPost[] {
   const [posts, setPosts] = useState<IPost[]>([]);

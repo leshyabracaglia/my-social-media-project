@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { View } from 'react-native';
+import NavBar from './NavBar';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -30,9 +30,12 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="index" options={{ headerShown: true, headerTitle: 'Social Media App', headerBackVisible: true }} />
+        <Stack.Screen name="index" />
+        <Stack.Screen name="Feed/index" />
+        <Stack.Screen name="Profile/index" />
         <Stack.Screen name="+not-found" />
       </Stack>
+      <NavBar />
     </ThemeProvider>
   );
 }
