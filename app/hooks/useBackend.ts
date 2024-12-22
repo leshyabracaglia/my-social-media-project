@@ -26,18 +26,19 @@ export interface ITextPost {
   id: string;
   type: IPostType;
   title: string;
+  image_src: string;
   subtitle: string;
   author: string;
-  date: string;
+  time_submitted: string;
 }
 
 export interface IImagePost extends ITextPost {
-  imageSrc: string;
+  image_src: string;
 }
 
 export type IPost = ITextPost | IImagePost;
 
-export const BACKEND_URL = "https://48e0-2600-4808-5a3d-8800-7804-13ef-751e-37d0.ngrok-free.app"
+export const BACKEND_URL = "https://dfde-2600-4808-5a3d-8800-7804-13ef-751e-37d0.ngrok-free.app"
 
 export function usePosts(): IPost[] {
   const [posts, setPosts] = useState<IPost[]>([]);
