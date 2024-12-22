@@ -14,7 +14,7 @@ DEFAULT_POST = {
     "subtitle": "This is a default post",
     "author": "Default Author",
     "date": "2024-01-01",
-    "type": "TEXT"
+    "type": "text"
 }
 
 DEFAULT_POSTS = [DEFAULT_POST] * 3
