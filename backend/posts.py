@@ -19,5 +19,6 @@ DEFAULT_POST = {
 
 DEFAULT_POSTS = [DEFAULT_POST] * 3
 
-def get_posts():
-    return DEFAULT_POSTS
+def get_posts(cursor):
+    posts = cursor.execute("SELECT * FROM posts")
+    return posts
