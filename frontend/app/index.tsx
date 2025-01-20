@@ -16,7 +16,7 @@ SplashScreen.preventAutoHideAsync();
 
 
 function RenderApp() {
-  const {loggedInUser} = useLoginStateContext();
+  const { loggedInUser } = useLoginStateContext();
 
   if(!loggedInUser){
     return <LoginScreen />
