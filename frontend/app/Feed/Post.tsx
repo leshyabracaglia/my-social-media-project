@@ -1,6 +1,7 @@
 import React, { View, Text, Image } from "react-native";
-import { IImagePost, IPost, ITextPost, POST_TYPES, usePosts } from "../hooks/useBackend";
 import { Icon } from "react-native-elements";
+import { IImagePost, ITextPost, POST_TYPES } from "./PostsProvider";
+import { IPost } from "./PostsProvider";
 
 function PostHeader({post}: {post: IPost}){
   return (
@@ -10,7 +11,6 @@ function PostHeader({post}: {post: IPost}){
     </View>
   );
 }
-
 
 function TextPost({post}: {post: ITextPost}){
   return (

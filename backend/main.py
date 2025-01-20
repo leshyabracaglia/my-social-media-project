@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from database import SQL
 
@@ -14,10 +14,11 @@ def get_posts():
     return jsonify(posts=posts)
 
 
-# @app.route('/api/create_post', methods=['POST'])
-# def create_post():
-#     posts.create_post()
-#     return jsonify("ok")
+@app.route('/api/create_post', methods=['POST'])
+def create_post():
+    data = request.get_json()
+    print(data)
+    return jsonify("ok")
 
 if __name__ == '__main__':
     app.run(debug=True)

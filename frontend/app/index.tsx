@@ -1,29 +1,26 @@
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import 'react-native-reanimated';
 
-import FeedScreen from './Feed';
-import NavBar from './NavBar';
-import LoginScreen from './LoginScreen';
-import { router } from 'expo-router';
+import { PaperProvider } from 'react-native-paper';
+import BottomNav from './components/BottomNav';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 
 function RenderApp() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  if(!isLoggedIn){
-    return <LoginScreen onLogin={() => {setIsLoggedIn(true); router.push('/Feed')}} />
-  }
+  // if(!isLoggedIn){
+  //   return <LoginScreen onLogin={() => {setIsLoggedIn(true); router.push('/Feed')}} />
+  // }
   
   return (
-    <>
-      <FeedScreen />
-      <NavBar />
-    </>
+    <PaperProvider>
+      <BottomNav />
+    </PaperProvider>
   )
 
 }

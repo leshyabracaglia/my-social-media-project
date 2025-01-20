@@ -1,11 +1,14 @@
 import React, { ScrollView, View } from "react-native";
 import PostButton from "./PostButton";
 import Post from "./Post";
-import { usePosts } from "../hooks/useBackend";
+import PostsProvider, { usePostsContext } from "./PostsProvider";
 
 
-export default function FeedScreen() {
-  const posts = usePosts();
+function Feed() {
+  const {posts} = usePostsContext();
+
+  // TODO: loading state 
+  if (!posts) return null;
 
   return (
     <View className="h-full w-full  bg-[#ACC3A6]">
@@ -21,4 +24,12 @@ export default function FeedScreen() {
       </View>
     </View>
   );
+}
+
+export default function FeedWrapper(){
+  return (
+    <PostsProvider>
+      <Feed />
+    </PostsProvider>
+  )
 }
