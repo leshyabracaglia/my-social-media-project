@@ -1,24 +1,25 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from database import SQL
+import posts
+
 
 # create the app
 app = Flask(__name__)
 CORS(app)
 
-sql = SQL()
 
 @app.route('/api/get_posts', methods=['GET'])
 def get_posts():
-    posts = sql.sql_read("SELECT * FROM posts")
-    return jsonify(posts=posts)
+    all_posts = posts.get_posts()
+    return jsonify(all_posts=all_posts)
 
 
 @app.route('/api/create_post', methods=['POST'])
 def create_post():
     data = request.get_json()
-    print(data)
-    return jsonify("ok")
+    success = posts.create_post(data)
+    return jsonify(success=success)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

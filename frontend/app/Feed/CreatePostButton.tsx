@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Button, Dialog, Portal, TextInput } from "react-native-paper";
+import { Button, Dialog, IconButton, Portal, TextInput } from "react-native-paper";
 import { usePostsContext } from "./PostsProvider";
 
+
 function CreatePostDialog({open, onClose}: {open: boolean, onClose: () => void}) {
-  const {createPost} = usePostsContext();
+  const { createTextPost } = usePostsContext();
   
   const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [subtitle, setSubtitle] = useState('');
 
   return (
     <Portal>
@@ -20,19 +21,15 @@ function CreatePostDialog({open, onClose}: {open: boolean, onClose: () => void})
             />
             <TextInput
               label="content"
-              value={content}
-              onChangeText={setContent}
+              value={subtitle}
+              onChangeText={setSubtitle}
             />
           </Dialog.Content>
             <Dialog.Actions>
               <Button onPress={() => {
-                createPost({
-                  title, subtitle: content,
-                  id: "",
-                  type: "",
-                  image_src: "",
-                  author: "",
-                  time_submitted: ""
+                createTextPost({
+                  title, 
+                  subtitle,
                 });
                 onClose();
               }}>Post</Button>
@@ -42,15 +39,12 @@ function CreatePostDialog({open, onClose}: {open: boolean, onClose: () => void})
   )
 }
 
-export default function PostButton() {
+export default function CreatePostButton() {
   const [postDialogOpen, setPostDialogOpen] = useState(false);
 
   return (
     <>
-      <Button onPress={() => setPostDialogOpen(true)}>Create Post</Button>
-      {/* <TouchableOpacity className="bg-[#6622CC] h-14 w-14 rounded-full flex items-center justify-center" onPress={() => setPostDialogOpen(true)}>
-        <Text className="text-2xl text-white">+</Text>
-      </TouchableOpacity> */}
+      <IconButton onPress={() => setPostDialogOpen(true)} className="bg-[#6622CC] h-14 w-14 rounded-full flex items-center justify-center" icon="plus" iconColor="white" />
       <CreatePostDialog open={postDialogOpen} onClose={() => setPostDialogOpen(false)} />
     </>
   )

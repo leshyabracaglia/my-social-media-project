@@ -20,4 +20,11 @@ class SQL:
             ans1.append(dict(row))
 
         return ans1
+    
+    def sql_write(self, query):
+        self.cursor.execute(query)
+        self.conn.commit()
+        
+    
+leshya_sql = SQL()
 

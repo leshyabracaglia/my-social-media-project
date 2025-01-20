@@ -1,5 +1,5 @@
 import React, { ScrollView, View } from "react-native";
-import PostButton from "./PostButton";
+import CreatePostButton from "./CreatePostButton";
 import Post from "./Post";
 import PostsProvider, { usePostsContext } from "./PostsProvider";
 
@@ -20,7 +20,7 @@ function Feed() {
       </ScrollView>
       
       <View className="absolute top-4 right-4">
-        <PostButton />
+        <CreatePostButton />
       </View>
     </View>
   );
