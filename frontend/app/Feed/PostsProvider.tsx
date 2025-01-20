@@ -3,6 +3,7 @@ import { PropsWithChildren, useState } from "react";
 import { createContext } from "react";
 import { backendFetch } from "../hooks/useBackend";
 import uuid from 'react-native-uuid';
+import { useLoginStateContext } from "../providers/LoginStateProvider";
 
 export const POST_TYPES = {
   TEXT: "text",
@@ -11,15 +12,14 @@ export const POST_TYPES = {
 // image, audio, idk?, poll, rating
 // lol rating could have rating, image, text,
 
-type IPostType = typeof POST_TYPES[keyof typeof POST_TYPES];
+// type IPostType = typeof POST_TYPES[keyof typeof POST_TYPES];
 
 export interface ITextPost {
   id: string;
-  type: IPostType;
+  firebase_uid: string;
   title: string;
   subtitle: string;
-  author: string;
-  time_submitted: Date;
+  time_created: Date;
 }
 
 export type IPost = ITextPost
@@ -37,8 +37,9 @@ export const PostsContext = createContext<IPostsContext>({
 });
 
 export default function PostsProvider({ children }: PropsWithChildren<object>) {
+  const {loggedInUser} = useLoginStateContext();
 
-  const [posts, setPosts] = useState<IPost[]>([]);
+  const [posts, setPosts] = useState<IPost[]>();
 
   const fetchPosts = useCallback(async () => {
     const response = await backendFetch<{all_posts: IPost[]}>('api/get_posts', {
@@ -60,18 +61,19 @@ export default function PostsProvider({ children }: PropsWithChildren<object>) {
       },
     })
     if (response.success) {
-      setPosts([...posts, post]);
+      setPosts([...(posts || []), post]);
     }
   }
 
   async function createTextPost({title, subtitle}: {title: string, subtitle: string}){
+    if (!loggedInUser?.uid) return;
+    
     await createPost({
       id: uuid.v4(),
-      type: POST_TYPES.TEXT,
+      firebase_uid: loggedInUser?.uid,
       title,
       subtitle,
-      author: "leshya",
-      time_submitted: new Date(),
+      time_created: new Date(),
     })
   }
 

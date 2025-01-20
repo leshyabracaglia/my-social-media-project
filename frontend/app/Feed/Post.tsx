@@ -1,4 +1,4 @@
-import React, { View, Text, Image } from "react-native";
+import React, { View, Text } from "react-native";
 import { Icon } from "react-native-elements";
 import { ITextPost } from "./PostsProvider";
 import { IPost } from "./PostsProvider";
@@ -8,7 +8,7 @@ function PostHeader({post}: {post: IPost}){
   return (
     <View className="flex flex-col justify-between">
       <Text className="text-2xl font-bold">{post.title}</Text>
-      <Text className="text-8 text-[#6622CC] pt-1">✪ {new Date(post.time_submitted)?.toLocaleString()}</Text>
+      <Text className="text-8 text-[#6622CC] pt-1">✪ {new Date(post.time_created)?.toLocaleString()}</Text>
     </View>
   );
 }
@@ -19,7 +19,7 @@ function TextPost({post}: {post: ITextPost}){
       <PostHeader post={post} />
       <Text className="mt-3">{post.subtitle}</Text>
       <View className="flex flex-row justify-between mt-4">
-        <Text className="text-[#6622CC]">{post.author}</Text>
+        <Text className="text-[#6622CC]">{post.firebase_uid}</Text>
         <Icon name="heart" type="feather" color='#6622CC' size={20} />
       </View>
     </Card>

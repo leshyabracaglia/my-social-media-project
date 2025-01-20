@@ -24,10 +24,18 @@ def get_posts():
 
 def create_post(post):
     leshya_sql.sql_write(
-      "INSERT INTO posts "
-      "(id, title, subtitle, author, time_submitted, type) "
+      "INSERT INTO posts ( "
+      "  id, "
+      "  firebase_uid, "
+      "  title, "
+      "  subtitle, "
+      "  time_created "
+      ") "
       "VALUES "
-      f"('{post['id']}', '{post['title']}', '{post['subtitle']}', "
-      f"'{post['author']}', '{post['time_submitted']}', '{post['type']}')"
+      f"('{post['id']}', "
+      f"'{post['firebase_uid']}', "
+      f"'{post['title']}', "
+      f"'{post['subtitle']}', "
+      f"'{post['time_created']}')"
     )
     return True
