@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Button, Dialog, IconButton, Portal, TextInput } from "react-native-paper";
+import { Dialog, Portal, TextInput } from "react-native-paper";
 import { usePostsContext } from "./PostsProvider";
-
+import Button from "../components/Button";
 
 function CreatePostDialog({open, onClose}: {open: boolean, onClose: () => void}) {
   const { createTextPost } = usePostsContext();
@@ -11,17 +11,22 @@ function CreatePostDialog({open, onClose}: {open: boolean, onClose: () => void})
 
   return (
     <Portal>
-      <Dialog visible={open} onDismiss={onClose}>
+      <Dialog visible={open} onDismiss={onClose} style={{borderRadius: 10}}>
         <Dialog.Title>New Post</Dialog.Title>
           <Dialog.Content>
             <TextInput
               label="Title"
               value={title}
+              mode="outlined"
               onChangeText={setTitle}
             />
             <TextInput
-              label="content"
+              label="Content"
               value={subtitle}
+              mode="outlined"
+              // multiline={true}
+              numberOfLines={4}
+              className="mt-3"
               onChangeText={setSubtitle}
             />
           </Dialog.Content>
@@ -44,7 +49,7 @@ export default function CreatePostButton() {
 
   return (
     <>
-      <IconButton onPress={() => setPostDialogOpen(true)} className="bg-[#6622CC] h-14 w-14 rounded-full flex items-center justify-center" icon="plus" iconColor="white" />
+      <Button onPress={() => setPostDialogOpen(true)} icon="plus">Create Post</Button>
       <CreatePostDialog open={postDialogOpen} onClose={() => setPostDialogOpen(false)} />
     </>
   )

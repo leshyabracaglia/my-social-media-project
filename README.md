@@ -43,7 +43,10 @@
 7. In useBackend.ts, replace value of BACKEND_URL with provided public ngrok url
 
 Enter sql database:
+
+```bash
 docker exec -it my-social-media-project-db psql -U postgres
+```
 
 In the output, you'll find options to open the app in a
 

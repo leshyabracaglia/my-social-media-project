@@ -1,9 +1,10 @@
-import { View, Text } from "react-native";
+import { Text } from "react-native";
+import AppPage from "../components/AppPage";
 
 export default function SettingsScreen() {
   return (
-    <View>
+    <AppPage>
       <Text>Settings</Text>
-    </View>
+    </AppPage>
   )
 }

@@ -2,6 +2,7 @@ import React, { ScrollView, View } from "react-native";
 import CreatePostButton from "./CreatePostButton";
 import Post from "./Post";
 import PostsProvider, { usePostsContext } from "./PostsProvider";
+import AppPage from "../components/AppPage";
 
 
 function Feed() {
@@ -11,18 +12,18 @@ function Feed() {
   if (!posts) return null;
 
   return (
-    <View className="h-full w-full  bg-[#ACC3A6]">
-      <ScrollView className="flex flex-col gap-6 mx-6 mt-6">
+    <AppPage>
+      <View className="mt-6" />
+      <CreatePostButton />
+      <ScrollView className="flex flex-col gap-6 mx-0 mt-6">
         {posts.map((post, index) => (
-          <Post post={post} key={`${post.id}-${post.type}-${index}`} />
+          <>
+            {index !== 0 && <View className="mt-6" />}
+            <Post post={post} key={post.id} /> 
+            </>
         ))}
-        <View className="h-10 w-full " />
       </ScrollView>
-      
-      <View className="absolute top-4 right-4">
-        <CreatePostButton />
-      </View>
-    </View>
+    </AppPage>
   );
 }
 

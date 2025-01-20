@@ -2,6 +2,7 @@ import React, { View, Text, Image } from "react-native";
 import { Icon } from "react-native-elements";
 import { ITextPost } from "./PostsProvider";
 import { IPost } from "./PostsProvider";
+import Card from "../components/Card";
 
 function PostHeader({post}: {post: IPost}){
   return (
@@ -14,14 +15,14 @@ function PostHeader({post}: {post: IPost}){
 
 function TextPost({post}: {post: ITextPost}){
   return (
-    <View className="bg-gray-100 !p-5 px-6 rounded-lg border-2 border-solid border-[#6622CC] mt-4 shadow-sm">
+    <Card>
       <PostHeader post={post} />
       <Text className="mt-3">{post.subtitle}</Text>
       <View className="flex flex-row justify-between mt-4">
         <Text className="text-[#6622CC]">{post.author}</Text>
         <Icon name="heart" type="feather" color='#6622CC' size={20} />
       </View>
-    </View>
+    </Card>
   );
 }
 

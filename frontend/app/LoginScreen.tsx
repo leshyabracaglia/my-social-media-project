@@ -1,20 +1,47 @@
-import { Text, View, TextInput, Button } from 'react-native';
+
 
 import { useState } from 'react';
+import { TextInput } from 'react-native-paper';
+import Button from './components/Button';
+import AppPage from './components/AppPage';
 
-// no login quick send me money using apple pay and I could send like an invite link to someone
-// public page like how we do store
+import { View } from "react-native";
 
-export default function LoginScreen({onLogin}: {onLogin: () => void}) {
+import { auth } from "../firebase_config";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { useLoginStateContext } from './providers/LoginStateProvider';
+
+// TODO: phone login
+
+
+export default function LoginScreen() {
+  const {createUser, login, logout} = useLoginStateContext();
 
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
-    <View className='bg-white flex flex-col justify-center p-12 gap-3 z-0 h-full'>
-      <Text className='text-black text-12 text-sm'>Login</Text>
-      <TextInput className='bg-gray-100 p-4 rounded-lg' placeholder='email' value={email} onChangeText={setEmail} />
-      <TextInput className='bg-gray-100 p-4 rounded-lg' placeholder='password' />
-      <View className='rounded-lg bg-black py-1'><Button title='Login' onPress={onLogin} color="#f194ff" /></View>
-    </View>
+    <AppPage>
+      <View className='flex flex-col justify-center p-12 gap-3 z-0 h-full'>
+      <TextInput
+        label="Email"
+        keyboardType='email-address'
+        textContentType='emailAddress'
+        className='bg-gray-100 p-4 rounded-lg'
+        placeholder='Email'
+        value={email}
+        onChangeText={setEmail}
+        />
+      <TextInput
+        label="Password"
+        className='bg-gray-100 p-4 rounded-lg'
+        placeholder='Password'
+        value={password}
+        onChangeText={setPassword}
+        />
+        <Button onPress={() => login(email, password)} disabled={!email || !password}>Login</Button>
+        <Button onPress={() => createUser(email, password)} disabled={!email || !password}>Create Account</Button>
+      </View>
+    </AppPage>
   );
 }

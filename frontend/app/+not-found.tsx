@@ -1,13 +1,13 @@
 import { Link } from '@react-navigation/native';
 import {  Stack } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 export default function NotFoundScreen() {
   return (
     <>
       <Stack.Screen options={{ title: 'Oops!' }} />
       <View style={styles.container}>
-        This screen doesn't exist.
+        <Text>This screen doesn't exist.</Text>
         {/* <Link href="/" style={styles.link}>
           Go to home screen!
         </Link> */}
