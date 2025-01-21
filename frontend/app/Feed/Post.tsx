@@ -19,7 +19,7 @@ function TextPost({post}: {post: ITextPost}){
       <PostHeader post={post} />
       <Text className="mt-3">{post.subtitle}</Text>
       <View className="flex flex-row justify-between mt-4">
-        <Text className="text-[#6622CC]">{post.firebase_uid}</Text>
+        <Text className="text-[#6622CC]">@{post.username}</Text>
         <Icon name="heart" type="feather" color='#6622CC' size={20} />
       </View>
     </Card>

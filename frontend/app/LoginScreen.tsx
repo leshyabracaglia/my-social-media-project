@@ -23,8 +23,8 @@ export default function LoginScreen() {
   const {createUser, login} = useLoginStateContext();
 
   const [emailError, setEmailError] = useState<boolean>(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('leshyabracaglia+3@gmail.com');
+  const [password, setPassword] = useState('0rch1d12!');
   const [error, setError] = useState<ILoginErrorCode | null>(null);
 
   const handleLogin = async () => {

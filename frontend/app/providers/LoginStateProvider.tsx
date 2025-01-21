@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { PropsWithChildren, useState } from "react";
 import { createContext } from "react";
 import { auth } from "../../firebase_config";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, User } from "firebase/auth";
+import { backendFetch } from "../hooks/useBackend";
 
 export const LOGIN_ERROR_CODES = {
   INVALID_CREDENTIAL: "auth/invalid-credential",
@@ -18,6 +19,8 @@ export interface ILoginStateContext {
   createUser: (email: string, password: string) => void;
   login: (email: string, password: string) => Promise<ILoginErrorCode | null>;
   logout: () => void;
+  isUsernameTaken: (username: string) => Promise<boolean>;
+  updateUser: (displayName: string, photoURL: string) => void;
 }
 
 export const LoginStateContext = createContext<ILoginStateContext>({
@@ -25,7 +28,10 @@ export const LoginStateContext = createContext<ILoginStateContext>({
   createUser: () => null,
   login: () => Promise.resolve(null),
   logout: () => {},
+  isUsernameTaken: () => Promise.resolve(false),
+  updateUser: () => {},
 });
+
 
 export default function LoginStateProvider({ children }: PropsWithChildren<object>) {
 
@@ -36,10 +42,25 @@ export default function LoginStateProvider({ children }: PropsWithChildren<objec
     setLoggedInUser(undefined);
   }
 
+  const backendCreateUser = (user: User) => {
+    backendFetch(`/api/create_user`, {
+      method: "POST",
+      body: JSON.stringify({
+        firebase_uid: user.uid,
+        email: user.email,
+        time_created: new Date(),
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } 
+
   const createUser = (email: string, password: string) => {
     createUserWithEmailAndPassword(auth, email.toLowerCase(), password)
       .then((userCredential) => {
         const user = userCredential.user;
+        backendCreateUser(user);
         setLoggedInUser(user);
       })
       .catch((error) => {
@@ -60,6 +81,37 @@ export default function LoginStateProvider({ children }: PropsWithChildren<objec
     }
   };
 
+  const updateUser = (displayName: string, photoURL: string) => {
+    if (!loggedInUser) return;
+    updateProfile(loggedInUser, {
+      displayName,
+      photoURL,
+    })
+    backendFetch(`/api/update_user`, {
+      method: "POST",
+      body: JSON.stringify({
+        firebase_uid: loggedInUser?.uid,
+        username: displayName,
+        profile_image_url: photoURL,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+  const isUsernameTaken = async (username: string) => {
+    const response = await backendFetch<{ is_taken: boolean }>(`/api/is_username_taken`, {
+      method: "POST",
+      body: JSON.stringify({ username }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(response);
+    return response.is_taken;
+  }
+
   return (
     <LoginStateContext.Provider
       value={{
@@ -67,6 +119,8 @@ export default function LoginStateProvider({ children }: PropsWithChildren<objec
         createUser,
         login,
         logout,
+        isUsernameTaken,
+        updateUser,
       }}
     >
       {children}

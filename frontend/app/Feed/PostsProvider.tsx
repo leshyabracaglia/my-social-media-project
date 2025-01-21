@@ -17,6 +17,8 @@ export const POST_TYPES = {
 export interface ITextPost {
   id: string;
   firebase_uid: string;
+  username: string;
+  profile_image_url?: string;
   title: string;
   subtitle: string;
   time_created: Date;
@@ -71,6 +73,8 @@ export default function PostsProvider({ children }: PropsWithChildren<object>) {
     await createPost({
       id: uuid.v4(),
       firebase_uid: loggedInUser?.uid,
+      username: loggedInUser?.displayName || '',
+      profile_image_url: loggedInUser?.photoURL || undefined,
       title,
       subtitle,
       time_created: new Date(),

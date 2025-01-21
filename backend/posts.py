@@ -1,4 +1,3 @@
-import uuid
 from database import leshya_sql
 
 POST_TYPES ={
@@ -9,18 +8,22 @@ POST_TYPES ={
 
 ACTIVE_POST_TYPES = ["TEXT"]
 
-# DEFAULT_POST = {
-#     "id": uuid.uuid4(),
-#     "title": "Default Post",
-#     "subtitle": "This is a default post",
-#     "author": "Default Author",
-#     "date": "2024-01-01",
-#     "type": "text"
-# }
-
 
 def get_posts():
-    return leshya_sql.sql_read("SELECT * FROM posts")
+  return leshya_sql.sql_read(
+    """
+      SELECT 
+        posts.id, 
+        posts.title, 
+        posts.subtitle, 
+        posts.time_created, 
+        users.username, 
+        users.profile_image_url
+      FROM posts
+      INNER JOIN users 
+      ON posts.firebase_uid = users.firebase_uid
+    """
+  )
 
 def create_post(post):
     leshya_sql.sql_write(
