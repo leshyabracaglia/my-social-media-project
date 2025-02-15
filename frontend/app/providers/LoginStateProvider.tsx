@@ -19,7 +19,6 @@ export interface ILoginStateContext {
   createUser: (email: string, password: string) => void;
   login: (email: string, password: string) => Promise<ILoginErrorCode | null>;
   logout: () => void;
-  isUsernameTaken: (username: string) => Promise<boolean>;
   updateUser: (displayName: string, photoURL: string) => void;
 }
 
@@ -28,7 +27,6 @@ export const LoginStateContext = createContext<ILoginStateContext>({
   createUser: () => null,
   login: () => Promise.resolve(null),
   logout: () => {},
-  isUsernameTaken: () => Promise.resolve(false),
   updateUser: () => {},
 });
 
@@ -100,18 +98,6 @@ export default function LoginStateProvider({ children }: PropsWithChildren<objec
     });
   }
 
-  const isUsernameTaken = async (username: string) => {
-    const response = await backendFetch<{ is_taken: boolean }>(`/api/is_username_taken`, {
-      method: "POST",
-      body: JSON.stringify({ username }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    console.log(response);
-    return response.is_taken;
-  }
-
   return (
     <LoginStateContext.Provider
       value={{
@@ -119,7 +105,6 @@ export default function LoginStateProvider({ children }: PropsWithChildren<objec
         createUser,
         login,
         logout,
-        isUsernameTaken,
         updateUser,
       }}
     >

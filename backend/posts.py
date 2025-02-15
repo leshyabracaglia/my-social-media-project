@@ -22,6 +22,7 @@ def get_posts():
       FROM posts
       INNER JOIN users 
       ON posts.firebase_uid = users.firebase_uid
+      ORDER BY posts.time_created DESC
     """
   )
 
@@ -42,3 +43,16 @@ def create_post(post):
       f"'{post['time_created']}')"
     )
     return True
+
+def get_posts_by_user(firebase_uid):
+  rows = leshya_sql.sql_read(
+    f"SELECT * FROM posts "
+    # f"WHERE firebase_uid = '{firebase_uid}' "
+    f"ORDER BY time_created DESC"
+  )
+
+  if not rows:
+    return []
+  
+  return rows
+

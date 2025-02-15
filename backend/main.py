@@ -26,7 +26,6 @@ def create_post():
 @app.route('/api/create_user', methods=['POST'])
 def create_user():
     data = request.get_json()
-    print(data)
     users.create_user(data)
     return jsonify("ok")
 
@@ -44,6 +43,13 @@ def update_user():
     data = request.get_json()
     users.update_user(data)
     return jsonify("ok")
+
+
+@app.route('/api/get_posts_by_user', methods=['POST'])
+def get_posts_by_user():
+    data = request.get_json()
+    all_posts = posts.get_posts_by_user(data['firebase_uid'])
+    return jsonify(all_posts=all_posts)
 
 
 if __name__ == '__main__':

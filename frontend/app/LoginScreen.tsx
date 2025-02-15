@@ -9,6 +9,7 @@ import validator from 'validator';
 import { View } from "react-native";
 
 import { ILoginErrorCode, LOGIN_ERROR_CODES, useLoginStateContext } from './providers/LoginStateProvider';
+import TextField from './components/TextField';
 
 // TODO: phone login
 
@@ -37,32 +38,28 @@ export default function LoginScreen() {
   return (
     <AppPage>
       <View className='flex flex-col justify-center gap-3 z-0 h-full'>
-        <TextInput
-          label="Email"
-          keyboardType='email-address'
-          textContentType='emailAddress'
-          className='bg-gray-100 p-1 rounded-lg font-mono text-md'
-          placeholder='Email'
-          value={email}
+        <TextField 
+          label="Email" 
+          value={email} 
           onChangeText={(text) => {
             setEmail(text);
             setEmailError(false);
-          }}
-          onBlur={() => {
+          }} onBlur={() => {
             const isEmail = validator.isEmail(email);
             setEmailError(!isEmail);
-          }}
+          }} 
+          placeholder='Email' 
         />
-        <TextInput
-          label="Password"
-          className='bg-gray-100 p-1 rounded-lg font-mono text-md'
-          placeholder='Password'
-          value={password}
-          onChangeText={setPassword}
+        <View className='h-1'/>
+        <TextField 
+          label="Password" 
+          value={password} 
+          onChangeText={setPassword} 
+          placeholder='Password' 
         />
-        {!!emailError && <Text className='text-red-500 pl-2 text-bold uppercase text-sm'>Invalid email</Text>}
+        {!!emailError && <Text className='text-red-500 pl-2 text-bold uppercase text-sm bg-white'>Invalid email</Text>}
         {error && <Text className='text-red-500'>{LOGIN_ERROR_MESSAGES[error]}</Text>}
-        <View className="pt-6">
+        <View className="pt-2">
           <Button onPress={handleLogin} disabled={!email || !password}>Login</Button>
           <View className='mt-2'/>
           
