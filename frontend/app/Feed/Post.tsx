@@ -1,26 +1,28 @@
-import React, { View, Text } from "react-native";
-import { Icon } from "react-native-elements";
-import { ITextPost } from "./PostsProvider";
-import { IPost } from "./PostsProvider";
-import Card from "../components/Card";
+import React, { View, Text } from 'react-native';
+import { Icon } from 'react-native-elements';
+import { ITextPost } from './FeedProvider';
+import { IPost } from './FeedProvider';
+import Card from '../components/Card';
 
-function PostHeader({post}: {post: IPost}){
+function PostHeader({ post }: { post: IPost }) {
   return (
     <View className="flex flex-col justify-between">
       <Text className="text-2xl font-bold">{post.title}</Text>
-      <Text className="text-8 text-[#6622CC] pt-1">✪ {new Date(post.time_created)?.toLocaleString()}</Text>
+      <Text className="text-8 pt-1 text-[#6622CC]">
+        ✪ {new Date(post.time_created)?.toLocaleString()}
+      </Text>
     </View>
   );
 }
 
-function TextPost({post}: {post: ITextPost}){
+function TextPost({ post }: { post: ITextPost }) {
   return (
     <Card>
       <PostHeader post={post} />
       <Text className="mt-3">{post.subtitle}</Text>
-      <View className="flex flex-row justify-between mt-4">
+      <View className="mt-4 flex flex-row justify-between">
         <Text className="text-[#6622CC]">@{post.username}</Text>
-        <Icon name="heart" type="feather" color='#6622CC' size={20} />
+        <Icon name="heart" type="feather" color="#6622CC" size={20} />
       </View>
     </Card>
   );

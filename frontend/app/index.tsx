@@ -10,24 +10,21 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase_config';
 import LoginStateProvider, { useLoginStateContext } from './providers/LoginStateProvider';
 
-
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-
 
 function RenderApp() {
   const { loggedInUser } = useLoginStateContext();
 
-  if(!loggedInUser){
-    return <LoginScreen />
+  if (!loggedInUser) {
+    return <LoginScreen />;
   }
-  
+
   return (
     <PaperProvider>
       <BottomNav />
     </PaperProvider>
-  )
-
+  );
 }
 
 export default function RootLayout() {

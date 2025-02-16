@@ -1,0 +1,5 @@
+public/
+*/node_modules
+# Modified by automated commits
+package.json
+package-lock.json

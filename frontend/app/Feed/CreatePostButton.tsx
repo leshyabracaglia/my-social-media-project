@@ -1,47 +1,51 @@
-import React, { useState } from "react";
-import { Dialog, Portal, TextInput } from "react-native-paper";
-import { usePostsContext } from "./PostsProvider";
-import Button from "../components/Button";
+import React, { useState } from 'react';
+import { Dialog, Portal, TextInput } from 'react-native-paper';
+import { useFeedContext } from './FeedProvider';
+import Button from '../components/Button';
 
-function CreatePostDialog({open, onClose}: {open: boolean, onClose: () => void}) {
-  const { createTextPost } = usePostsContext();
-  
+function CreatePostDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const { createTextPost } = useFeedContext();
+
   const [title, setTitle] = useState('');
   const [subtitle, setSubtitle] = useState('');
 
   return (
     <Portal>
-      <Dialog visible={open} onDismiss={onClose} style={{borderRadius: 10}}>
+      <Dialog visible={open} onDismiss={onClose} style={{ borderRadius: 10 }}>
         <Dialog.Title>New Post</Dialog.Title>
-          <Dialog.Content>
-            <TextInput
-              label="Title"
-              value={title}
-              mode="outlined"
-              onChangeText={setTitle}
-            />
-            <TextInput
-              label="Content"
-              value={subtitle}
-              mode="outlined"
-              // multiline={true}
-              numberOfLines={4}
-              className="mt-3"
-              onChangeText={setSubtitle}
-            />
-          </Dialog.Content>
-            <Dialog.Actions>
-              <Button onPress={() => {
-                createTextPost({
-                  title, 
-                  subtitle,
-                });
-                onClose();
-              }}>Post</Button>
-            </Dialog.Actions>
+        <Dialog.Content>
+          <TextInput
+            label="Title"
+            value={title}
+            mode="outlined"
+            onChangeText={setTitle}
+          />
+          <TextInput
+            label="Content"
+            value={subtitle}
+            mode="outlined"
+            // multiline={true}
+            numberOfLines={4}
+            className="mt-3"
+            onChangeText={setSubtitle}
+          />
+        </Dialog.Content>
+        <Dialog.Actions>
+          <Button
+            onPress={() => {
+              createTextPost({
+                title,
+                subtitle,
+              });
+              onClose();
+            }}
+          >
+            Post
+          </Button>
+        </Dialog.Actions>
       </Dialog>
     </Portal>
-  )
+  );
 }
 
 export default function CreatePostButton() {
@@ -49,8 +53,10 @@ export default function CreatePostButton() {
 
   return (
     <>
-      <Button onPress={() => setPostDialogOpen(true)} icon="plus">Create Post</Button>
+      <Button onPress={() => setPostDialogOpen(true)} icon="plus">
+        Create Post
+      </Button>
       <CreatePostDialog open={postDialogOpen} onClose={() => setPostDialogOpen(false)} />
     </>
-  )
-} 
+  );
+}

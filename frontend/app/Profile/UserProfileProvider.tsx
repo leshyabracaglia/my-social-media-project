@@ -1,10 +1,9 @@
-import { useCallback, useContext } from "react";
-import { PropsWithChildren, useState } from "react";
-import { createContext } from "react";
-import { backendFetch } from "../hooks/useBackend";
-import { useLoginStateContext } from "../providers/LoginStateProvider";
-import { IPost } from "../Feed/PostsProvider";
-
+import { useCallback, useContext } from 'react';
+import { PropsWithChildren, useState } from 'react';
+import { createContext } from 'react';
+import { backendFetch } from '../hooks/useBackend';
+import { useLoginStateContext } from '../providers/LoginStateProvider';
+import { IPost } from '../Feed/FeedProvider';
 
 export interface IUserProfileContext {
   userPosts: IPost[] | undefined;
@@ -25,28 +24,27 @@ export default function UserProfileProvider({ children }: PropsWithChildren<obje
 
   const fetchUserPosts = async () => {
     console.log('fetching posts');
-    const response = await backendFetch<{all_posts: IPost[]}>('api/get_posts_by_user', {
-      method: "post",
-      body: JSON.stringify({firebase_uid: loggedInUser?.uid}),
+    const response = await backendFetch<{ all_posts: IPost[] }>('api/get_posts_by_user', {
+      method: 'post',
+      body: JSON.stringify({ firebase_uid: loggedInUser?.uid }),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-    })
-    console.log(response);
-    setUserPosts(response.all_posts)
+    });
+    setUserPosts(response.all_posts);
   };
 
   const isUsernameTaken = async (username: string) => {
     const response = await backendFetch<{ is_taken: boolean }>(`/api/is_username_taken`, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({ username }),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
     console.log(response);
     return response.is_taken;
-  }
+  };
 
   return (
     <UserProfileContext.Provider
@@ -65,9 +63,7 @@ export function useUserProfileContext() {
   const context = useContext(UserProfileContext);
 
   if (!context) {
-    throw new Error(
-      'useUserProfileContext must be used within a UserProfileProvider',
-    );
+    throw new Error('useUserProfileContext must be used within a UserProfileProvider');
   }
 
   return context;

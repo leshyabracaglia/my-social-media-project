@@ -47,7 +47,7 @@ def create_post(post):
 def get_posts_by_user(firebase_uid):
   rows = leshya_sql.sql_read(
     f"SELECT * FROM posts "
-    # f"WHERE firebase_uid = '{firebase_uid}' "
+    f"WHERE firebase_uid = '{firebase_uid}' "
     f"ORDER BY time_created DESC"
   )
 

@@ -10,9 +10,9 @@ const SettingsRoute = () => <SettingsScreen />;
 
 export default function BottomNav() {
   const [index, setIndex] = React.useState(0);
-  
+
   const [routes] = React.useState([
-    { key: 'feed', title: 'Feed', focusedIcon: 'heart', unfocusedIcon: 'heart-outline'},
+    { key: 'feed', title: 'Feed', focusedIcon: 'heart', unfocusedIcon: 'heart-outline' },
     { key: 'profile', title: 'Profile', focusedIcon: 'album' },
     { key: 'settings', title: 'Settings', focusedIcon: 'history' },
   ]);
@@ -30,4 +30,4 @@ export default function BottomNav() {
       renderScene={renderScene}
     />
   );
-};
+}
