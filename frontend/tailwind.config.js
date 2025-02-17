@@ -8,10 +8,11 @@ module.exports = {
     extend: {
       fontFamily: {
         poppins: ['Poppins', ...fontFamily.sans],
+        vt323: ['VT323', ...fontFamily.sans],
+        syneMono: ['SyneMono', ...fontFamily.sans],
+        silkscreen: ['Silkscreen', ...fontFamily.sans],
+        silkscreenBold: ['SilkscreenBold', ...fontFamily.sans],
       },
-    },
-    fontFamily: {
-      openSans: ['"Open Sans"'],
     },
   },
   plugins: [],

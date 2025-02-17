@@ -24,7 +24,7 @@ export default function Button({
         borderRadius: 10,
         padding: size === 'small' ? 1 : 4,
         borderWidth: 2,
-        borderColor: '#9900FF',
+        borderColor: '#6622CC',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,

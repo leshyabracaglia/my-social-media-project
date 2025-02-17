@@ -8,7 +8,7 @@ function PostHeader({ post }: { post: IPost }) {
   return (
     <View className="flex flex-col justify-between">
       <Text className="font-poppins text-xl font-bold">{post.title}</Text>
-      <Text className="text-8 pt-1 font-poppins text-[#6622CC]">
+      <Text className="pt-1 font-silkscreen text-[#6622CC]">
         ✪ {new Date(post.time_created)?.toLocaleString()}
       </Text>
     </View>
@@ -20,9 +20,9 @@ function TextPost({ post }: { post: ITextPost }) {
     <Card>
       <PostHeader post={post} />
       <Text className="mt-3 font-poppins">{post.subtitle}</Text>
-      <View className="mt-4 flex flex-row justify-between">
-        <Text className="font-poppins text-[#6622CC]">@{post.username}</Text>
-        <Icon name="heart" type="feather" color="#6622CC" size={20} />
+      <View className="mt-2 flex flex-row justify-between">
+        <Text className="font-silkscreen text-lg text-[#6622CC]">@{post.username}</Text>
+        <Icon name="heart" type="feather" color="#6622CC" size={20} className="mt-1" />
       </View>
     </Card>
   );

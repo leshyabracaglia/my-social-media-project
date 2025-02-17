@@ -25,7 +25,9 @@ export default function CreateAccountScreen({ onLogin }: { onLogin: () => void }
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [username, setUsername] = useState<string>('');
-  const [firebaseErrorCode, setFirebaseErrorCode] = useState<ILoginErrorCode | null>(null);
+  const [firebaseErrorCode, setFirebaseErrorCode] = useState<ILoginErrorCode | null>(
+    null,
+  );
 
   const createAccount = async () => {
     if (!email || !password || !username) {
@@ -66,7 +68,9 @@ export default function CreateAccountScreen({ onLogin }: { onLogin: () => void }
             placeholder="Password"
           />
           {firebaseErrorCode && (
-            <Text className="ml-4 mt-4 text-red-500">{LOGIN_ERROR_MESSAGES[firebaseErrorCode]}</Text>
+            <Text className="ml-4 mt-4 text-red-500">
+              {LOGIN_ERROR_MESSAGES[firebaseErrorCode]}
+            </Text>
           )}
           <View className="pl-1 pt-4">
             <Button

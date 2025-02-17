@@ -35,6 +35,10 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     Poppins: require('../assets/fonts/Poppins-Regular.ttf'),
     PoppinsSemiBold: require('../assets/fonts/Poppins-SemiBold.ttf'),
+    VT323: require('../assets/fonts/VT323-Regular.ttf'),
+    SyneMono: require('../assets/fonts/SyneMono-Regular.ttf'),
+    Silkscreen: require('../assets/fonts/Silkscreen-Regular.ttf'),
+    SilkscreenBold: require('../assets/fonts/Silkscreen-Bold.ttf'),
   });
 
   useEffect(() => {
