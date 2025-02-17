@@ -17,7 +17,8 @@ export default function Button({
   return (
     <PaperButton
       onPress={onPress}
-      buttonColor="#C6A9F4"
+      buttonColor="white"
+      // "#C6A9F4"
       icon={icon}
       style={{
         borderRadius: 10,

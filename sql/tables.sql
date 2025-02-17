@@ -16,10 +16,9 @@ CREATE TABLE users (
   first_name TEXT,
   last_name TEXT,
   profile_image_url TEXT,
-  time_created TIMESTAMP
-);
-
-ALTER TABLE users ADD COLUMN username TEXT;
+  time_created TIMESTAMP,
+  username TEXT
+)
 
 CREATE TABLE likes (
   post_id UUID PRIMARY KEY,

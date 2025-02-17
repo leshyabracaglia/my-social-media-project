@@ -16,13 +16,13 @@ export const LOGIN_ERROR_CODES = {
   INVALID_EMAIL: 'auth/invalid-email',
   USER_NOT_FOUND: 'auth/user-not-found',
   WRONG_PASSWORD: 'auth/wrong-password',
-};
+} as const;
 
-export type ILoginErrorCode = keyof typeof LOGIN_ERROR_CODES;
+export type ILoginErrorCode = (typeof LOGIN_ERROR_CODES)[keyof typeof LOGIN_ERROR_CODES];
 
 export interface ILoginStateContext {
   loggedInUser: User | undefined;
-  createUser: (email: string, password: string) => void;
+  createUser: (email: string, password: string, username: string) => void;
   login: (email: string, password: string) => Promise<ILoginErrorCode | null>;
   logout: () => void;
   updateUser: (displayName: string, photoURL: string) => void;
@@ -44,13 +44,14 @@ export default function LoginStateProvider({ children }: PropsWithChildren<objec
     setLoggedInUser(undefined);
   };
 
-  const backendCreateUser = (user: User) => {
+  const backendCreateUser = (user: User, username: string) => {
     backendFetch(`/api/create_user`, {
       method: 'POST',
       body: JSON.stringify({
         firebase_uid: user.uid,
         email: user.email,
         time_created: new Date(),
+        username,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -58,18 +59,19 @@ export default function LoginStateProvider({ children }: PropsWithChildren<objec
     });
   };
 
-  const createUser = (email: string, password: string) => {
-    createUserWithEmailAndPassword(auth, email.toLowerCase(), password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        backendCreateUser(user);
-        setLoggedInUser(user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+  const createUser = async (email: string, password: string, username: string) => {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email.toLowerCase(),
+      password,
+    );
+    const user = userCredential.user;
+    backendCreateUser(user, username);
+    await updateProfile(user, {
+      displayName: username,
+      photoURL: '',
+    });
+    setLoggedInUser({ ...user, displayName: username });
   };
 
   const login = async (email: string, password: string) => {

@@ -6,22 +6,27 @@ export default function TextField({
   onChangeText,
   onBlur,
   placeholder,
+  mode = 'flat',
+  error = false,
 }: {
   label: string;
   value: string;
+  error?: boolean;
   onChangeText: (text: string) => void;
   onBlur?: () => void;
   placeholder: string;
+  mode?: 'flat' | 'outlined';
 }) {
   return (
     <TextInput
-      label={<Text className="text-md font-poppins text-black">{label}</Text>}
+      label={<Text className="font-poppins text-black">{label}</Text>}
       placeholder={placeholder}
       value={value}
       onChangeText={onChangeText}
+      error={error}
       onBlur={onBlur}
-      mode="flat"
-      className="font-mono ml-2 rounded-t-lg bg-[#ffffff] p-1 pb-2 text-lg text-black"
+      mode={mode}
+      className="mx-2 rounded-lg bg-[#ffffff] p-1 pb-2 text-lg"
     />
   );
 }

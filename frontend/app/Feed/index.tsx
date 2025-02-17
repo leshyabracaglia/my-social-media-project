@@ -27,6 +27,7 @@ function Posts() {
           <Post post={post} key={post.id} />
         </>
       ))}
+      <View className="h-36" />
     </ScrollView>
   );
 }

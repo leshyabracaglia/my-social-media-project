@@ -73,7 +73,7 @@ export default function FeedProvider({ children }: PropsWithChildren<object>) {
       },
     });
     if (response.success) {
-      setPosts([...(posts || []), post]);
+      setPosts([post, ...(posts || [])]);
     }
   }
 

@@ -1,4 +1,4 @@
-import { useCallback, useContext } from 'react';
+import { useContext } from 'react';
 import { PropsWithChildren, useState } from 'react';
 import { createContext } from 'react';
 import { backendFetch } from '../hooks/useBackend';
@@ -23,7 +23,6 @@ export default function UserProfileProvider({ children }: PropsWithChildren<obje
   const [userPosts, setUserPosts] = useState<IPost[]>();
 
   const fetchUserPosts = async () => {
-    console.log('fetching posts');
     const response = await backendFetch<{ all_posts: IPost[] }>('api/get_posts_by_user', {
       method: 'post',
       body: JSON.stringify({ firebase_uid: loggedInUser?.uid }),
@@ -42,7 +41,6 @@ export default function UserProfileProvider({ children }: PropsWithChildren<obje
         'Content-Type': 'application/json',
       },
     });
-    console.log(response);
     return response.is_taken;
   };
 
