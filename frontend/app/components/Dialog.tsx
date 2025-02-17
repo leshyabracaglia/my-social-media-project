@@ -15,9 +15,9 @@ export default function Dialog({
     <NativePaperDialog
       visible={open}
       onDismiss={onClose}
-      style={{ borderRadius: 16, borderWidth: 1, borderColor: '#5F8773' }}
+      style={{ borderRadius: 16, borderWidth: 1, borderColor: '#6622CC' }}
     >
-      <NativePaperDialog.Title className="text-lg text-white">
+      <NativePaperDialog.Title className="text-xl text-white font-poppins">
         {title}
       </NativePaperDialog.Title>
       {children}

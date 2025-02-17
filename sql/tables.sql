@@ -25,3 +25,10 @@ CREATE TABLE likes (
   firebase_uid TEXT NOT NULL,
   time_liked TIMESTAMP
 );
+
+CREATE TABLE ratings (
+  rating_id UUID PRIMARY KEY,
+  post_id UUID,
+  topic TEXT,
+  rating INT
+);

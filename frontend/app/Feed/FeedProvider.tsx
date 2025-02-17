@@ -41,11 +41,13 @@ export type IPost = ITextPost | IRatingPost;
 export interface IFeedContext {
   posts: IPost[] | undefined;
   createTextPost: ({ title, subtitle }: { title: string; subtitle: string }) => void;
+  createRatingPost: ({ title, subtitle, rating }: { title: string; subtitle: string; rating: number }) => void;
 }
 
 export const FeedContext = createContext<IFeedContext>({
   posts: undefined,
   createTextPost: () => {},
+  createRatingPost: () => {},
 });
 
 export default function FeedProvider({ children }: PropsWithChildren<object>) {
@@ -99,11 +101,37 @@ export default function FeedProvider({ children }: PropsWithChildren<object>) {
     });
   }
 
+  async function createRatingPost({
+    title,
+    subtitle,
+    rating,
+  }: {
+    title: string;
+    subtitle: string;
+    rating: number;
+  }) {
+    if (!loggedInUser?.uid) return;
+
+    await createPost({
+      id: uuid.v4(),
+      firebase_uid: loggedInUser?.uid,
+      username: loggedInUser?.displayName || '',
+      profile_image_url: loggedInUser?.photoURL || undefined,
+      title,
+      subtitle,
+      time_created: new Date(),
+      type: POST_TYPES.RATING,
+      rating,
+      likes_count: 0,
+    });
+  }
+
   return (
     <FeedContext.Provider
       value={{
         posts,
         createTextPost,
+        createRatingPost, 
       }}
     >
       {children}
