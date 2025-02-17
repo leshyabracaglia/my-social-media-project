@@ -7,8 +7,8 @@ import Card from '../components/Card';
 function PostHeader({ post }: { post: IPost }) {
   return (
     <View className="flex flex-col justify-between">
-      <Text className="text-2xl font-bold">{post.title}</Text>
-      <Text className="text-8 pt-1 text-[#6622CC]">
+      <Text className="font-poppins text-xl font-bold">{post.title}</Text>
+      <Text className="text-8 pt-1 font-poppins text-[#6622CC]">
         ✪ {new Date(post.time_created)?.toLocaleString()}
       </Text>
     </View>
@@ -19,9 +19,9 @@ function TextPost({ post }: { post: ITextPost }) {
   return (
     <Card>
       <PostHeader post={post} />
-      <Text className="mt-3">{post.subtitle}</Text>
+      <Text className="mt-3 font-poppins">{post.subtitle}</Text>
       <View className="mt-4 flex flex-row justify-between">
-        <Text className="text-[#6622CC]">@{post.username}</Text>
+        <Text className="font-poppins text-[#6622CC]">@{post.username}</Text>
         <Icon name="heart" type="feather" color="#6622CC" size={20} />
       </View>
     </Card>

@@ -1,36 +1,27 @@
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 
 import AppPage from '../components/AppPage';
-import Button from '../components/Button';
 import { useLoginStateContext } from '../providers/LoginStateProvider';
 import UserProfileProvider, { useUserProfileContext } from './UserProfileProvider';
 import { Image } from 'react-native-elements';
 import { useEffect, useState } from 'react';
-import { TextInput } from 'react-native-paper';
+import { IconButton } from 'react-native-paper';
 import ProfileDrawer from './ProfileDrawer';
 import Post from '../Feed/Post';
 import { ScrollView } from 'react-native-gesture-handler';
 
 function ProfileScreen() {
-  const { logout, loggedInUser, updateUser } = useLoginStateContext();
-  const { isUsernameTaken, userPosts, fetchUserPosts } = useUserProfileContext();
+  const { loggedInUser } = useLoginStateContext();
+  const { userPosts, fetchUserPosts } = useUserProfileContext();
 
-  const [profileImage, setProfileImage] = useState<string | undefined>(
-    loggedInUser?.photoURL ?? undefined,
-  );
+  // const [profileImage, setProfileImage] = useState<string | undefined>(
+  //   loggedInUser?.photoURL ?? undefined,
+  // );
   const [username, setUsername] = useState<string | undefined>(
     loggedInUser?.displayName ?? undefined,
   );
 
-  const [usernameAvailable, setUsernameAvailable] = useState<boolean>(true);
-
   const [profileDrawerOpen, setProfileDrawerOpen] = useState<boolean>(false);
-
-  const checkUsername = async () => {
-    if (!username) return;
-    const isTaken = await isUsernameTaken(username);
-    setUsernameAvailable(!isTaken);
-  };
 
   useEffect(() => {
     if (!userPosts) {
@@ -40,14 +31,28 @@ function ProfileScreen() {
 
   return (
     <ProfileDrawer open={profileDrawerOpen} setOpen={setProfileDrawerOpen}>
-      <ScrollView className="mx-0 mt-6 flex flex-col gap-6">
+      <ScrollView className="mx-0 flex flex-col gap-6">
         <AppPage>
-          <View className="flex h-full flex-col items-center font-poppins">
-            <TouchableOpacity onPress={() => setProfileDrawerOpen(true)}>
-              <Text className="text-md mt-4 w-full text-center font-poppins text-2xl font-bold">
-                Open Drawer
-              </Text>
-            </TouchableOpacity>
+          <View className="mt-8 flex h-screen flex-col items-center font-poppins">
+            <IconButton
+              icon="arrow-left-bold-hexagon-outline"
+              iconColor="black"
+              mode="contained"
+              containerColor="#C6A9F4"
+              style={{
+                borderRadius: 10,
+                borderWidth: 2,
+                borderColor: '#9900FF',
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 1.84,
+                elevation: 3,
+              }}
+              className="absolute left-9 top-2"
+              size={35}
+              onPress={() => setProfileDrawerOpen(true)}
+            />
             <Image
               source={{ uri: 'https://picsum.photos/200/300' }}
               className="borx-border mt-12 h-28 w-28 rounded-2xl border border-solid border-gray-300"
@@ -56,7 +61,7 @@ function ProfileScreen() {
               @{loggedInUser?.displayName}
             </Text>
 
-            <TextInput
+            {/* <TextInput
               label="Username"
               value={username}
               onChangeText={setUsername}
@@ -68,12 +73,12 @@ function ProfileScreen() {
               }}
               className="font-mono text-md mt-3 w-full rounded-lg bg-gray-100 p-1 text-black"
               placeholder="Username"
-            />
-            {!usernameAvailable && (
+            /> */}
+            {/* {!usernameAvailable && (
               <Text className="mt-2 text-sm text-red-500">Username is already taken</Text>
-            )}
+            )} */}
 
-            <View className="mt-6 flex h-full w-full flex-col items-center">
+            <View className="mx-4 mt-6 h-full pl-6">
               {userPosts?.map((post) => <Post post={post} key={post.id} />)}
               {userPosts?.length === 0 && (
                 <Text className="mt-2 text-sm text-black">No posts yet</Text>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Dialog, Portal, TextInput } from 'react-native-paper';
 import { useFeedContext } from './FeedProvider';
 import Button from '../components/Button';
+import Dialog from '../components/Dialog';
+import { Dialog as NativePaperDialog, Portal, TextInput } from 'react-native-paper';
 
 function CreatePostDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { createTextPost } = useFeedContext();
@@ -11,9 +12,8 @@ function CreatePostDialog({ open, onClose }: { open: boolean; onClose: () => voi
 
   return (
     <Portal>
-      <Dialog visible={open} onDismiss={onClose} style={{ borderRadius: 10 }}>
-        <Dialog.Title>New Post</Dialog.Title>
-        <Dialog.Content>
+      <Dialog title="New Post" open={open} onClose={onClose}>
+        <NativePaperDialog.Content>
           <TextInput
             label="Title"
             value={title}
@@ -24,14 +24,13 @@ function CreatePostDialog({ open, onClose }: { open: boolean; onClose: () => voi
             label="Content"
             value={subtitle}
             mode="outlined"
-            // multiline={true}
-            numberOfLines={4}
             className="mt-3"
             onChangeText={setSubtitle}
           />
-        </Dialog.Content>
-        <Dialog.Actions>
+        </NativePaperDialog.Content>
+        <NativePaperDialog.Actions>
           <Button
+            size="small"
             onPress={() => {
               createTextPost({
                 title,
@@ -42,7 +41,7 @@ function CreatePostDialog({ open, onClose }: { open: boolean; onClose: () => voi
           >
             Post
           </Button>
-        </Dialog.Actions>
+        </NativePaperDialog.Actions>
       </Dialog>
     </Portal>
   );

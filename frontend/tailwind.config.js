@@ -1,21 +1,17 @@
 /** @type {import('tailwindcss').Config} */
-const { fontFamily } = require("tailwindcss/defaultTheme");
+const { fontFamily } = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  content: [
-    "./app/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ['./app/**/*.{js,jsx,ts,tsx}'],
   // presets: [require('nativewind/tailwind')],
   theme: {
     extend: {
       fontFamily: {
-        poppins: ["Poppins", ...fontFamily.sans],
+        poppins: ['Poppins', ...fontFamily.sans],
       },
     },
     fontFamily: {
-      openSans: [
-        '"Open Sans"',
-      ],
+      openSans: ['"Open Sans"'],
     },
   },
   plugins: [],

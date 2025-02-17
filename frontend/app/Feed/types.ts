@@ -1,10 +1,3 @@
-import { useCallback, useContext, useEffect } from 'react';
-import { PropsWithChildren, useState } from 'react';
-import { createContext } from 'react';
-import { backendFetch } from '../hooks/useBackend';
-import uuid from 'react-native-uuid';
-import { useLoginStateContext } from '../providers/LoginStateProvider';
-
 export const POST_TYPES = {
   TEXT: 'text',
   RATING: 'rating',

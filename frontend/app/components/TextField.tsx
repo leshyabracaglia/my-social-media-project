@@ -21,7 +21,7 @@ export default function TextField({
       onChangeText={onChangeText}
       onBlur={onBlur}
       mode="flat"
-      className="font-mono ml-2 rounded-t-lg bg-[#ffffffda] p-1 pb-2 text-lg text-black"
+      className="font-mono ml-2 rounded-t-lg bg-[#ffffff] p-1 pb-2 text-lg text-black"
     />
   );
 }

@@ -17,13 +17,13 @@ export default function Button({
   return (
     <PaperButton
       onPress={onPress}
-      buttonColor="#C1B8A6"
+      buttonColor="#C6A9F4"
       icon={icon}
       style={{
         borderRadius: 10,
-        padding: size === 'small' ? 5 : 8,
-        borderWidth: 1,
-        borderColor: '#4A4A4A',
+        padding: size === 'small' ? 1 : 4,
+        borderWidth: 2,
+        borderColor: '#9900FF',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
@@ -31,10 +31,11 @@ export default function Button({
         elevation: 3,
       }}
       labelStyle={{
-        fontSize: 20,
+        fontSize: size === 'small' ? 17 : 20,
+        lineHeight: size === 'small' ? 20 : 25,
         color: 'black',
         fontWeight: 'bold',
-        fontFamily: 'Poppins',
+        fontFamily: 'PoppinsSemiBold',
       }}
       disabled={disabled}
       mode="contained"

@@ -3,7 +3,8 @@ CREATE TABLE posts (
   firebase_uid TEXT NOT NULL,
   title TEXT,
   subtitle TEXT,
-  time_created TIMESTAMP
+  time_created TIMESTAMP,
+  type TEXT
 );
 
 CREATE INDEX idx_firebase_uid ON posts(firebase_uid);
@@ -19,3 +20,9 @@ CREATE TABLE users (
 );
 
 ALTER TABLE users ADD COLUMN username TEXT;
+
+CREATE TABLE likes (
+  post_id UUID PRIMARY KEY,
+  firebase_uid TEXT NOT NULL,
+  time_liked TIMESTAMP
+);

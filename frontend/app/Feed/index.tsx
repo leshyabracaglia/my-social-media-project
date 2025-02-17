@@ -20,10 +20,10 @@ function Posts() {
   if (!posts?.length) return <Text>No posts</Text>;
 
   return (
-    <ScrollView className="mx-0 mt-6 flex flex-col gap-6">
+    <ScrollView className="flex flex-col">
       {posts.map((post, index) => (
         <>
-          {index !== 0 && <View className="mt-6" />}
+          {index !== 0 && <View className="mt-5" />}
           <Post post={post} key={post.id} />
         </>
       ))}
@@ -34,9 +34,16 @@ function Posts() {
 function Feed() {
   return (
     <AppPage>
-      <View className="mt-6" />
-      <CreatePostButton />
-      <Posts />
+      <View className="flex h-full flex-col">
+        <View className="h-full bg-[#00000055] px-4">
+          <View className="mt-6">
+            <CreatePostButton />
+          </View>
+          <View className="mt-6 h-full">
+            <Posts />
+          </View>
+        </View>
+      </View>
     </AppPage>
   );
 }

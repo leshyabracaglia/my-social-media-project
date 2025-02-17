@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Text, TextInput } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import Button from './components/Button';
 import AppPage from './components/AppPage';
 import validator from 'validator';
@@ -12,8 +12,7 @@ import {
   useLoginStateContext,
 } from './providers/LoginStateProvider';
 import TextField from './components/TextField';
-
-// TODO: phone login
+import { Image } from 'react-native';
 
 const LOGIN_ERROR_MESSAGES = {
   [LOGIN_ERROR_CODES.INVALID_CREDENTIAL]: 'Invalid email or password',
@@ -39,7 +38,12 @@ export default function LoginScreen() {
 
   return (
     <AppPage>
-      <View className="z-0 flex h-full flex-col justify-center gap-3">
+      <View className="z-0 flex h-full flex-col px-6">
+        <Image
+          source={require('../assets/images/main_icon.png')}
+          className="mb-8 mt-24 h-48 w-48 self-center"
+          resizeMode="contain"
+        />
         <TextField
           label="Email"
           value={email}
@@ -53,7 +57,7 @@ export default function LoginScreen() {
           }}
           placeholder="Email"
         />
-        <View className="h-1" />
+        <View className="h-3" />
         <TextField
           label="Password"
           value={password}
@@ -66,13 +70,12 @@ export default function LoginScreen() {
           </Text>
         )}
         {error && <Text className="text-red-500">{LOGIN_ERROR_MESSAGES[error]}</Text>}
-        <View className="pt-2">
+        <View className="pt-4">
           <Button onPress={handleLogin} disabled={!email || !password}>
             Login
           </Button>
-          <View className="mt-2" />
         </View>
-        <View className="absolute bottom-4 left-0 right-0">
+        <View className="absolute bottom-16 left-0 right-0 px-6">
           <Button onPress={() => createUser(email, password)}>Create Account</Button>
         </View>
       </View>
